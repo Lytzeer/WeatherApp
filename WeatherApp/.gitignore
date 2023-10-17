@@ -5,4 +5,4 @@ bin/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
-app.config
+app.config.xaml
