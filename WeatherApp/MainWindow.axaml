@@ -5,5 +5,142 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WeatherApp.MainWindow"
         Title="WeatherApp">
-    Welcome to Avalonia!
+    <TabControl>
+        <TabItem Header="Recherche">
+            <StackPanel Orientation="Vertical">
+                <Label>Recherchez une ville :</Label>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="SearchBar" MinWidth="400"></TextBox>
+                    <Button Click="ValiderRecherche">Valider</Button>
+                </StackPanel>
+                <Label Name="Error"></Label>
+                <Label Name="Ville" FontSize="36"></Label>
+                <Label Name="Coord"></Label>
+                <StackPanel Orientation="Horizontal">
+                    <Label Name="Image" FontSize="50"></Label>
+                    <StackPanel Orientation="Vertical">
+                        <Label Name="Temp"></Label>
+                        <Label Name="Desc"></Label>
+                        <Label Name="Hum"></Label>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Prévisions">
+            <StackPanel Orientation="Vertical">
+                <Label>Recherchez une ville :</Label>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="SearchBar2" MinWidth="400"></TextBox>
+                    <Button Click="ValiderRecherche">Valider</Button>
+                </StackPanel>
+                <Label Name="Error2"></Label>
+                <Label Name="Ville2" FontSize="36"></Label>
+                <Label Name="Coord2"></Label>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="Image2" FontSize="50"></Label>
+                        <StackPanel Orientation="Vertical">
+                            <Label Name="Temp2"></Label>
+                            <Label Name="Desc2"></Label>
+                            <Label Name="Hum2"></Label>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="Image3" FontSize="50"></Label>
+                        <StackPanel Orientation="Vertical">
+                            <Label Name="Temp3"></Label>
+                            <Label Name="Desc3"></Label>
+                            <Label Name="Hum3"></Label>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="Image4" FontSize="50"></Label>
+                        <StackPanel Orientation="Vertical">
+                            <Label Name="Temp4"></Label>
+                            <Label Name="Desc4"></Label>
+                            <Label Name="Hum4"></Label>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="Image5" FontSize="50"></Label>
+                        <StackPanel Orientation="Vertical">
+                            <Label Name="Temp5"></Label>
+                            <Label Name="Desc5"></Label>
+                            <Label Name="Hum5"></Label>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="Image6" FontSize="50"></Label>
+                        <StackPanel Orientation="Vertical">
+                            <Label Name="Temp6"></Label>
+                            <Label Name="Desc6"></Label>
+                            <Label Name="Hum6"></Label>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Paramètres">
+            <StackPanel Orientation="Vertical">
+                <Label>Choisissez une ville par défaut</Label>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="SelectBar" Width="400"></TextBox>
+                    <Button>Valider</Button>
+                </StackPanel>
+                <Label>Choisissez une langue par défaut :</Label>
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox SelectedIndex="0" Width="400">
+                        <ComboBoxItem Name="af">Afrikaans</ComboBoxItem>
+                        <ComboBoxItem Name="al">Albanian</ComboBoxItem>
+                        <ComboBoxItem Name="ar">Arabic</ComboBoxItem>
+                        <ComboBoxItem Name="az">Azerbaijani</ComboBoxItem>
+                        <ComboBoxItem Name="bg">Bulgarian</ComboBoxItem>
+                        <ComboBoxItem Name="ca">Catalan</ComboBoxItem>
+                        <ComboBoxItem Name="cz">Czech</ComboBoxItem>
+                        <ComboBoxItem Name="da">Danish</ComboBoxItem>
+                        <ComboBoxItem Name="de">German</ComboBoxItem>
+                        <ComboBoxItem Name="el">Greek</ComboBoxItem>
+                        <ComboBoxItem Name="en">English</ComboBoxItem>
+                        <ComboBoxItem Name="eu">Basque</ComboBoxItem>
+                        <ComboBoxItem Name="fa">Persian (Farsi)</ComboBoxItem>
+                        <ComboBoxItem Name="fi">Finnish</ComboBoxItem>
+                        <ComboBoxItem Name="fr">French</ComboBoxItem>
+                        <ComboBoxItem Name="gl">Galician</ComboBoxItem>
+                        <ComboBoxItem Name="he">Hebrew</ComboBoxItem>
+                        <ComboBoxItem Name="hi">Hindi</ComboBoxItem>
+                        <ComboBoxItem Name="hr">Croatian</ComboBoxItem>
+                        <ComboBoxItem Name="hu">Hungarian</ComboBoxItem>
+                        <ComboBoxItem Name="id">Indonesian</ComboBoxItem>
+                        <ComboBoxItem Name="it">Italian</ComboBoxItem>
+                        <ComboBoxItem Name="ja">Japanese</ComboBoxItem>
+                        <ComboBoxItem Name="kr">Korean</ComboBoxItem>
+                        <ComboBoxItem Name="la">Latvian</ComboBoxItem>
+                        <ComboBoxItem Name="lt">Lithuanian</ComboBoxItem>
+                        <ComboBoxItem Name="mk">Macedonian</ComboBoxItem>
+                        <ComboBoxItem Name="no">Norwegian</ComboBoxItem>
+                        <ComboBoxItem Name="nl">Dutch</ComboBoxItem>
+                        <ComboBoxItem Name="pl">Polish</ComboBoxItem>
+                        <ComboBoxItem Name="pt">Portuguese</ComboBoxItem>
+                        <ComboBoxItem Name="pt_br">Português Brasil</ComboBoxItem>
+                        <ComboBoxItem Name="ro">Romanian</ComboBoxItem>
+                        <ComboBoxItem Name="ru">Russian</ComboBoxItem>
+                        <ComboBoxItem Name="sv">Swedish</ComboBoxItem>
+                        <ComboBoxItem Name="sk">Slovak</ComboBoxItem>
+                        <ComboBoxItem Name="sl">Slovenian</ComboBoxItem>
+                        <ComboBoxItem Name="sp">Spanish</ComboBoxItem>
+                        <ComboBoxItem Name="sr">Serbian</ComboBoxItem>
+                        <ComboBoxItem Name="th">Thai</ComboBoxItem>
+                        <ComboBoxItem Name="tr">Turkish</ComboBoxItem>
+                        <ComboBoxItem Name="ua">Ukrainian</ComboBoxItem>
+                        <ComboBoxItem Name="vi">Vietnamese</ComboBoxItem>
+                        <ComboBoxItem Name="zh_cn">Chinese Simplified</ComboBoxItem>
+                        <ComboBoxItem Name="zh_tw">Chinese Traditional</ComboBoxItem>
+                        <ComboBoxItem Name="zu">Zulu</ComboBoxItem>
+                    </ComboBox>
+                    <Button>Valider</Button>
+                </StackPanel>
+                
+            </StackPanel>
+        </TabItem>
+    </TabControl>
 </Window>
