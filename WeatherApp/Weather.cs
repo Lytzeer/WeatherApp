@@ -10,13 +10,11 @@ namespace WeatherApp
     public class WeatherApp
     {
 
-        public async Task<string> CityWeatherActual(string city)
+        public async Task<WeatherActual> CityWeatherActual(string city)
         {
-            string content = File.ReadAllText("app.config.json");
+            string content = File.ReadAllText("../../../app.config.json");
             ConfigurationSettings config = JsonConvert.DeserializeObject<ConfigurationSettings>(content);
             string apiKey = config.apiKey;
-
-            Console.WriteLine(apiKey);
 
 
 
@@ -34,13 +32,14 @@ namespace WeatherApp
                         WeatherActual Wa = JsonConvert.DeserializeObject<WeatherActual>(responseBody);
                         Console.WriteLine(responseBody);
                         Console.WriteLine(Wa.Name);
-                        return Wa.Coord.Lat;
+                        return Wa;
                     }
-                    return "";
+
+                    return new WeatherActual();
                 }
                 catch (Exception ex)
                 {
-                    return ex.Message;
+                    return new WeatherActual();
                 }
             }
         }
