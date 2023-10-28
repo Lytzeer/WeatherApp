@@ -31,7 +31,7 @@
                 <Label>Recherchez une ville :</Label>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Name="SearchBar2" MinWidth="400"></TextBox>
-                    <Button Click="ValiderRecherche">Valider</Button>
+                    <Button Click="ValiderRecherche2">Valider</Button>
                 </StackPanel>
                 <Label Name="Error2"></Label>
                 <Label Name="Ville2" FontSize="36"></Label>
@@ -139,7 +139,6 @@
                     </ComboBox>
                     <Button>Valider</Button>
                 </StackPanel>
-                
             </StackPanel>
         </TabItem>
     </TabControl>
