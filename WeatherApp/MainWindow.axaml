@@ -17,7 +17,7 @@
                 <Label Name="Ville" FontSize="36"></Label>
                 <Label Name="Coord"></Label>
                 <StackPanel Orientation="Horizontal">
-                    <Label Name="Image" FontSize="50"></Label>
+                    <Image Name="Image"></Image>
                     <StackPanel Orientation="Vertical">
                         <Label Name="Temp"></Label>
                         <Label Name="Desc"></Label>
