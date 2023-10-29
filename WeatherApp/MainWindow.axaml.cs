@@ -30,7 +30,7 @@ public partial class MainWindow : Window
             Ville.Content = search[0].ToString().ToUpper()+search.Substring(1).ToString()  +", "+wa.SysWeather.Country;
             Coord.Content = wa.Coord.Lat+"; "+wa.Coord.Lon;
             //Dl les images en local et test comme ça
-            Image.Source =  "https://openweathermap.org/img/wn/10"+wa.Weathers[0].Icon.ToString()+".png";
+            // Image.Source =  "https://openweathermap.org/img/wn/10"+wa.Weathers[0].Icon.ToString()+".png";
             Temp.Content = "Température : "+wa.MainWeather.Temp;
             Desc.Content = "Description : "+wa.Weathers[0].Description;
             Hum.Content = "Humidité : "+wa.MainWeather.Humidity+"%";
