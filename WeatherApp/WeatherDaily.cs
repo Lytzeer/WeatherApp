@@ -1,38 +1,48 @@
 using System.Collections.Generic;
 using System.Security.Authentication;
+using Newtonsoft.Json;
 
 namespace WeatherApp
 {
     public class WeatherDaily
     {
-        public City City{get;set;}
-        public ListsDaily[] ListsDailys{get;set;}
+        [JsonProperty("city")] public CityDaily CityDaily{get;set;}
+        [JsonProperty("list")] public ListsDaily[] ListsDailys{get;set;}
     }
 
-    public class City
+    public class CityDaily
     {
-        public string Name{get;set;}
-        public string Country{get;set;}
-        public Coord Coord{get;set;}
-        public int Population{get;set;}
-        public int Timezone{get;set;}
-        public int Sunrise{get;set;}
-        public int Sunset{get;set;}
+        [JsonProperty("name")] public string Name{get;set;}
+        [JsonProperty("country")] public string Country{get;set;}
+        [JsonProperty("coord")] public Coord Coord{get;set;}
+        [JsonProperty("population")] public int Population{get;set;}
+        [JsonProperty("timezone")] public int Timezone{get;set;}
+        [JsonProperty("sunrise")] public int Sunrise{get;set;}
+        [JsonProperty("sunset")] public int Sunset{get;set;}
     }
 
     public class ListsDaily
     {
-        public int Dt{get;set;}
-        public MainWeather Main{get;set;}
-        public List<WeatherDailyInfos> Weather{get;set;}
-        public string Dt_txt{get;set;}
+        [JsonProperty("dt")] public int Dt{get;set;}
+        [JsonProperty("main")] public MainWeatherDaily Main{get;set;}
+        [JsonProperty("weather")] public List<WeatherDailyInfos> Weather{get;set;}
+        [JsonProperty("dt_txt")] public string DtTxt{get;set;}
+    }
+
+    public class MainWeatherDaily
+    {
+        [JsonProperty("temp")] public float Temp { set; get; }
+        [JsonProperty("feels_like")] public float Feels_like { set; get; }
+        [JsonProperty("temp_min")] public float Temp_min { set; get; }
+        [JsonProperty("temp_max")] public float Temp_max { set; get; }
+        [JsonProperty("humidity")] public int Humidity { set; get; }
     }
 
     public class WeatherDailyInfos
     {
-        public int Id{get;set;}
-        public MainWeather Main{get;set;}
-        public string Description{get;set;}
-        public string Icon{get;set;}
+        [JsonProperty("id")]public int Id{get;set;}
+        [JsonProperty("main")]public string Main{get;set;}
+        [JsonProperty("description")]public string Description{get;set;}
+        [JsonProperty("icon")]public string Icon{get;set;}
     }
 }

@@ -1,11 +1,16 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media.Imaging;
 
 namespace WeatherApp;
 
 public partial class MainWindow : Window
 {
+    public string City = "";
+    public WeatherDaily wD = new WeatherDaily();
+    public WeatherActual wa = new WeatherActual();
+    public WeatherApp w = new WeatherApp();
     public MainWindow()
     {
         InitializeComponent();
@@ -14,23 +19,22 @@ public partial class MainWindow : Window
     async private void ValiderRecherche(object? sender, RoutedEventArgs e)
     {
         Button b = sender as Button;
-        string search = SearchBar.Text.ToString();
-        if (search == "")
+        City= SearchBar.Text.ToString();
+        if (City == "")
         {
             Error.Content = "Entrez le nom d'une ville avant de valider";
         }
         else
         {
-            WeatherActual wa = new WeatherActual();
-            WeatherApp w = new WeatherApp();
-            //Console.WriteLine(await w.CityWeatherActual(search));
-            wa = await w.CityWeatherActual(search);
+            wa = await w.CityWeatherActual(City);
+            wD = await w.CityWeatherDaily(City);
+            Console.WriteLine(wD.ListsDailys[0].DtTxt);
             SearchBar.Text = "";
             Error.Content = "";
-            Ville.Content = search[0].ToString().ToUpper()+search.Substring(1).ToString()  +", "+wa.SysWeather.Country;
+            //On formate la ville en mettant la première lettre en majuscule et le reste en minuscules.
+            Ville.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+wa.SysWeather.Country;
             Coord.Content = wa.Coord.Lat+"; "+wa.Coord.Lon;
-            //Dl les images en local et test comme ça
-            // Image.Source =  "https://openweathermap.org/img/wn/10"+wa.Weathers[0].Icon.ToString()+".png";
+            Image.Source = new Bitmap($"../../../img/{wa.Weathers[0].Icon}.png");
             Temp.Content = "Température : "+wa.MainWeather.Temp;
             Desc.Content = "Description : "+wa.Weathers[0].Description;
             Hum.Content = "Humidité : "+wa.MainWeather.Humidity+"%";
