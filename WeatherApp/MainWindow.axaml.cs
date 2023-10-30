@@ -9,7 +9,7 @@ public partial class MainWindow : Window
 {
     public string City = "";
     public WeatherDaily wD = new WeatherDaily();
-    public WeatherActual wa = new WeatherActual();
+    public WeatherActual wA = new WeatherActual();
     public WeatherApp w = new WeatherApp();
     public MainWindow()
     {
@@ -26,18 +26,50 @@ public partial class MainWindow : Window
         }
         else
         {
-            wa = await w.CityWeatherActual(City);
+            wA = await w.CityWeatherActual(City);
             wD = await w.CityWeatherDaily(City);
             Console.WriteLine(wD.ListsDailys[0].DtTxt);
-            SearchBar.Text = "";
-            Error.Content = "";
-            //On formate la ville en mettant la première lettre en majuscule et le reste en minuscules.
-            Ville.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+wa.SysWeather.Country;
-            Coord.Content = wa.Coord.Lat+"; "+wa.Coord.Lon;
-            Image.Source = new Bitmap($"../../../img/{wa.Weathers[0].Icon}.png");
-            Temp.Content = "Température : "+wa.MainWeather.Temp;
-            Desc.Content = "Description : "+wa.Weathers[0].Description;
-            Hum.Content = "Humidité : "+wa.MainWeather.Humidity+"%";
+            DisplayCurrentWeather();
+            DisplayDailyWeather();
+        }
+    }
+
+    private void DisplayCurrentWeather()
+    {
+        SearchBar.Text = "";
+        Error.Content = "";
+        Ville.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+wA.SysWeather.Country;
+        Coord.Content = wA.Coord.Lat+"; "+wA.Coord.Lon;
+        Image.Source = new Bitmap($"../../../img/{wA.Weathers[0].Icon}.png");
+        Temp.Content = "Température : "+wA.MainWeather.Temp;
+        Desc.Content = "Description : "+wA.Weathers[0].Description;
+        Hum.Content = "Humidité : "+wA.MainWeather.Humidity+"%";
+    }
+
+    private void DisplayDailyWeather()
+    {
+        SearchBar2.Text = "";
+        Error2.Content = "";
+        Ville2.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+wD.CityDaily.Country;
+        Coord2.Content = "Coordonées";
+        //On commence j à 2 car les labels sont nommés à partir de 2.
+        int j = 2;
+        for (int i = 0; i < wD.ListsDailys.Length; i++)
+        {
+            Console.WriteLine(wD.ListsDailys[i].Weather[0].Icon);
+            DateTime date = DateTime.ParseExact(wD.ListsDailys[i].DtTxt, "yyyy-MM-dd HH:mm:ss", null);
+            if (date.Hour == 12)
+            {
+                Image = this.FindControl<Image>("Image" + j);
+                Temp=this.FindControl<Label>("Temp" + j);
+                Desc = this.FindControl<Label>("Desc" + j);
+                Hum = this.FindControl<Label>("Hum" + j);
+                Temp.Content = wD.ListsDailys[i].Main.Temp.ToString();
+                Image.Source = new Bitmap($"../../../img/{wD.ListsDailys[i].Weather[0].Icon}.png");
+                Desc.Content = wD.ListsDailys[i].Weather[0].Description;
+                Hum.Content = wD.ListsDailys[i].Main.Humidity+"%";
+                j++;
+            }
         }
     }
     
@@ -48,33 +80,6 @@ public partial class MainWindow : Window
         if (search == "")
         {
             Error2.Content = "Entrez le nom d'une ville avant de valider";
-        }
-        else
-        {
-            SearchBar2.Text = "";
-            Error2.Content = "";
-            Ville2.Content = search;
-            Coord2.Content = "Coordonées";
-            Image2.Content = "Image";
-            Temp2.Content = "Température";
-            Desc2.Content = "Description";
-            Hum2.Content = "Humidité";
-            Image3.Content = "Image";
-            Temp3.Content = "Température";
-            Desc3.Content = "Description";
-            Hum3.Content = "Humidité";
-            Image4.Content = "Image";
-            Temp4.Content = "Température";
-            Desc4.Content = "Description";
-            Hum4.Content = "Humidité";
-            Image5.Content = "Image";
-            Temp5.Content = "Température";
-            Desc5.Content = "Description";
-            Hum5.Content = "Humidité";
-            Image6.Content = "Image";
-            Temp6.Content = "Température";
-            Desc6.Content = "Description";
-            Hum6.Content = "Humidité";
         }
     }
 }
