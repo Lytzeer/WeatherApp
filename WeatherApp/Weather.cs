@@ -15,10 +15,8 @@ namespace WeatherApp
         public async Task<WeatherActual> CityWeatherActual(string city)
         {
             string content = File.ReadAllText("../../../app.config.json");
-            ConfigurationSettings config = JsonConvert.DeserializeObject<ConfigurationSettings>(content);
+            ApiSettings config = JsonConvert.DeserializeObject<ApiSettings>(content);
             string apiKey = config.apiKey;
-
-
 
             string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric&lang=fr";
 
@@ -47,10 +45,17 @@ namespace WeatherApp
         public async Task<WeatherDaily> CityWeatherDaily(string city)
         {
             string content = File.ReadAllText("../../../app.config.json");
-            ConfigurationSettings config = JsonConvert.DeserializeObject<ConfigurationSettings>(content);
+            ApiSettings config = JsonConvert.DeserializeObject<ApiSettings>(content);
             string apiKey = config.apiKey;
 
-            string apiUrl = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}&lang=fr&units=metric";
+            ApplicationSettings settings = GetSettings();
+            
+            Console.WriteLine(settings.lang);
+
+            string apiUrl = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}&lang={settings.lang.ToString()}&units=metric";
+            
+            //lang à fixer car cpt
+            
 
             using (HttpClient client = new HttpClient())
             {
@@ -74,11 +79,24 @@ namespace WeatherApp
                 }
             }
         }
+        
+        public ApplicationSettings GetSettings()
+        {
+            string configSettings = File.ReadAllText("../../../options.json");
+            ApplicationSettings config = JsonConvert.DeserializeObject<ApplicationSettings>(configSettings);
+            return config;
+        }
     }
 
-    public class ConfigurationSettings
+    public class ApiSettings
     {
         public string apiKey { get; set; }
+    }
+    
+    public class ApplicationSettings
+    {
+        public string defaultCity { get; set; }
+        public string lang { get; set; }
     }
 }
 

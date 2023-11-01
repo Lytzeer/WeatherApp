@@ -89,12 +89,12 @@
             <StackPanel Orientation="Vertical">
                 <Label>Choisissez une ville par défaut</Label>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Name="SelectBar" Width="400"></TextBox>
-                    <Button>Valider</Button>
+                    <TextBox Name="SelectBarCity" Width="400"></TextBox>
+                    <Button Name="defaultCity" Click="DefaultCity_OnClick">Valider</Button>
                 </StackPanel>
                 <Label>Choisissez une langue par défaut :</Label>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox SelectedIndex="0" Width="400">
+                    <ComboBox Name="defaultLangBox" Width="400">
                         <ComboBoxItem Name="af">Afrikaans</ComboBoxItem>
                         <ComboBoxItem Name="al">Albanian</ComboBoxItem>
                         <ComboBoxItem Name="ar">Arabic</ComboBoxItem>
@@ -142,7 +142,7 @@
                         <ComboBoxItem Name="zh_tw">Chinese Traditional</ComboBoxItem>
                         <ComboBoxItem Name="zu">Zulu</ComboBoxItem>
                     </ComboBox>
-                    <Button>Valider</Button>
+                    <Button Name="defaultLang" Click="DefaultLang_OnClick">Valider</Button>
                 </StackPanel>
             </StackPanel>
         </TabItem>
