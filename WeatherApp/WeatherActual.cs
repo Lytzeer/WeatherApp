@@ -4,6 +4,7 @@ namespace WeatherApp;
 
 public class WeatherActual
 {
+    public string Error { get; set; }
     [JsonProperty("coord")] public Coord Coord { get; set; }
     [JsonProperty("name")] public string Name { set; get; }
     [JsonProperty("weather")] public Weather[] Weathers { set; get; }

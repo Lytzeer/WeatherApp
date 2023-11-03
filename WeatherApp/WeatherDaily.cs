@@ -6,6 +6,7 @@ namespace WeatherApp
 {
     public class WeatherDaily
     {
+        public string Error { get; set; }
         [JsonProperty("city")] public CityDaily CityDaily{get;set;}
         [JsonProperty("list")] public ListsDaily[] ListsDailys{get;set;}
     }

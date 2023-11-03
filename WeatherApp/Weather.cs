@@ -17,8 +17,10 @@ namespace WeatherApp
             string content = File.ReadAllText("../../../app.config.json");
             ApiSettings config = JsonConvert.DeserializeObject<ApiSettings>(content);
             string apiKey = config.apiKey;
+            
+            ApplicationSettings settings = GetSettings();
 
-            string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric&lang=fr";
+            string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric&lang={settings.lang}";
 
             using (HttpClient client = new HttpClient())
             {
@@ -29,11 +31,19 @@ namespace WeatherApp
                     if (response.IsSuccessStatusCode)
                     {
                         string responseBody = await response.Content.ReadAsStringAsync();
-                        WeatherActual Wa = JsonConvert.DeserializeObject<WeatherActual>(responseBody);
-                        return Wa;
+                        WeatherActual wA = JsonConvert.DeserializeObject<WeatherActual>(responseBody);
+                        wA.Error = "";
+                        return wA;
+                    }
+                    else
+                    {
+                        WeatherActual wA = new WeatherActual();
+                        wA.Error = "Veuillez entrez une ville qui existe s'il vous plaît";
+                        Console.WriteLine(response.StatusCode.ToString()=="NotFound");
+                        Console.WriteLine(response.StatusCode);
+                        return wA;
                     }
 
-                    return new WeatherActual();
                 }
                 catch (Exception ex)
                 {
@@ -67,10 +77,15 @@ namespace WeatherApp
                     {
                         string responseBody = await response.Content.ReadAsStringAsync();
                         WeatherDaily wD = JsonConvert.DeserializeObject<WeatherDaily>(responseBody);
-                        Console.WriteLine(responseBody);
+                        wD.Error = "";
                         return wD;
                     }
-                    return new WeatherDaily();
+                    else
+                    {
+                        WeatherDaily wD = new WeatherDaily();
+                        wD.Error = "Veuillez entrez une ville qui existe s'il vous plaît";
+                        return wD;
+                    }
                 }
                 catch (Exception ex)
                 {

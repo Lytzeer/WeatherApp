@@ -28,11 +28,6 @@
         </TabItem>
         <TabItem Header="Prévisions">
             <StackPanel Orientation="Vertical">
-                <Label>Recherchez une ville :</Label>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Name="SearchBar2" MinWidth="400"></TextBox>
-                    <Button Click="ValiderRecherche2">Valider</Button>
-                </StackPanel>
                 <Label Name="Error2"></Label>
                 <Label Name="Ville2" FontSize="36"></Label>
                 <Label Name="Coord2"></Label>
@@ -41,6 +36,8 @@
                         <Label Name="Imagee2" FontSize="50"></Label>
                         <Image Name="Image2" Width="50"></Image>
                         <StackPanel Orientation="Vertical">
+                            <Label Name="Date2"></Label>
+                            <Label Name="Time2"></Label>
                             <Label Name="Temp2"></Label>
                             <Label Name="Desc2"></Label>
                             <Label Name="Hum2"></Label>
@@ -50,6 +47,8 @@
                         <Label Name="Imagee3" FontSize="50"></Label>
                         <Image Name="Image3" Width="50"></Image>
                         <StackPanel Orientation="Vertical">
+                            <Label Name="Date3"></Label>
+                            <Label Name="Time3"></Label>
                             <Label Name="Temp3"></Label>
                             <Label Name="Desc3"></Label>
                             <Label Name="Hum3"></Label>
@@ -59,6 +58,8 @@
                         <Label Name="Imagee4" FontSize="50"></Label>
                         <Image Name="Image4" Width="50"></Image>
                         <StackPanel Orientation="Vertical">
+                            <Label Name="Date4"></Label>
+                            <Label Name="Time4"></Label>
                             <Label Name="Temp4"></Label>
                             <Label Name="Desc4"></Label>
                             <Label Name="Hum4"></Label>
@@ -68,6 +69,8 @@
                         <Label Name="Imagee5" FontSize="50"></Label>
                         <Image Name="Image5" Width="50"></Image>
                         <StackPanel Orientation="Vertical">
+                            <Label Name="Date5"></Label>
+                            <Label Name="Time5"></Label>
                             <Label Name="Temp5"></Label>
                             <Label Name="Desc5"></Label>
                             <Label Name="Hum5"></Label>
@@ -77,6 +80,8 @@
                         <Label Name="Imagee6" FontSize="50"></Label>
                         <Image Name="Image6" Width="50"></Image>
                         <StackPanel Orientation="Vertical">
+                            <Label Name="Date6"></Label>
+                            <Label Name="Time6"></Label>
                             <Label Name="Temp6"></Label>
                             <Label Name="Desc6"></Label>
                             <Label Name="Hum6"></Label>
@@ -91,6 +96,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBox Name="SelectBarCity" Width="400"></TextBox>
                     <Button Name="defaultCity" Click="DefaultCity_OnClick">Valider</Button>
+                    <Label Name="ErrorDefaultCity"></Label>
                 </StackPanel>
                 <Label>Choisissez une langue par défaut :</Label>
                 <StackPanel Orientation="Horizontal">
