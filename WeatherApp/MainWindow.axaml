@@ -5,38 +5,64 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WeatherApp.MainWindow"
         Title="WeatherApp">
-    <TabControl>
-        <TabItem Header="Recherche">
-            <StackPanel Orientation="Vertical">
-                <Label>Recherchez une ville :</Label>
+    <Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontFamily" Value="Poppins"/>
+
+        </Style>
+        <Style Selector="Label">
+            <Setter Property="FontFamily" Value="Poppins"/>
+        </Style>
+        <Style Selector="Label.Coords">
+            <Setter Property="Foreground" Value="#4287f5"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="5,0,0,20"/>
+        </Style>
+        <Style Selector="Label.Date">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#4287f5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+    </Window.Styles>
+    <TabControl Background="#e6e6e6">
+        <TabItem Header="Recherche" >
+            <StackPanel Orientation="Vertical" >
+                <Label  FontSize="25" Padding="0,30,0,10">Recherchez une ville :</Label>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Name="SearchBar" MinWidth="400"></TextBox>
-                    <Button Click="ValiderRecherche">Valider</Button>
+                    <TextBox FontFamily="Poppins" Name="SearchBar" MinWidth="400"></TextBox>
+                    <Button Click="ValiderRecherche" >Valider</Button>
                 </StackPanel>
-                <Label Name="Error"></Label>
-                <Label Name="Ville" FontSize="36"></Label>
-                <Label Name="Coord"></Label>
-                <StackPanel Orientation="Horizontal">
+                <Label  Name="Error" ></Label>
+                <Label  Name="Ville" FontSize="36"></Label>
+                <Label Classes="Coords" Name="Coord"></Label>
+                <StackPanel Orientation="Horizontal" >
                     <Image Name="Image"></Image>
                     <StackPanel Orientation="Vertical">
-                        <Label Name="Temp"></Label>
-                        <Label Name="Desc"></Label>
-                        <Label Name="Hum"></Label>
+                        <Label  Name="Temp"></Label>
+                        <Label   Name="Desc"></Label>
+                        <Label  Name="Hum"></Label>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
         </TabItem>
-        <TabItem Header="Prévisions">
+        <TabItem Header="Prévisions"  >
             <StackPanel Orientation="Vertical">
                 <Label Name="Error2"></Label>
                 <Label Name="Ville2" FontSize="36"></Label>
-                <Label Name="Coord2"></Label>
+                <Label Name="Coord2" Classes="Coords" ></Label>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
                         <Label Name="Imagee2" FontSize="50"></Label>
-                        <Image Name="Image2" Width="50"></Image>
+                        <Image Name="Image2" Width="70"></Image>
                         <StackPanel Orientation="Vertical">
-                            <Label Name="Date2"></Label>
+                            <Label Name="Date2" Classes="Date"></Label>
                             <Label Name="Time2"></Label>
                             <Label Name="Temp2"></Label>
                             <Label Name="Desc2"></Label>
@@ -45,9 +71,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Name="Imagee3" FontSize="50"></Label>
-                        <Image Name="Image3" Width="50"></Image>
+                        <Image Name="Image3" Width="70"></Image>
                         <StackPanel Orientation="Vertical">
-                            <Label Name="Date3"></Label>
+                            <Label Name="Date3" Classes="Date"></Label>
                             <Label Name="Time3"></Label>
                             <Label Name="Temp3"></Label>
                             <Label Name="Desc3"></Label>
@@ -56,9 +82,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Name="Imagee4" FontSize="50"></Label>
-                        <Image Name="Image4" Width="50"></Image>
+                        <Image Name="Image4" Width="70"></Image>
                         <StackPanel Orientation="Vertical">
-                            <Label Name="Date4"></Label>
+                            <Label Name="Date4" Classes="Date"></Label>
                             <Label Name="Time4"></Label>
                             <Label Name="Temp4"></Label>
                             <Label Name="Desc4"></Label>
@@ -67,9 +93,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Name="Imagee5" FontSize="50"></Label>
-                        <Image Name="Image5" Width="50"></Image>
+                        <Image Name="Image5" Width="70"></Image>
                         <StackPanel Orientation="Vertical">
-                            <Label Name="Date5"></Label>
+                            <Label Name="Date5" Classes="Date"></Label>
                             <Label Name="Time5"></Label>
                             <Label Name="Temp5"></Label>
                             <Label Name="Desc5"></Label>
@@ -78,9 +104,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Name="Imagee6" FontSize="50"></Label>
-                        <Image Name="Image6" Width="50"></Image>
+                        <Image Name="Image6" Width="70"></Image>
                         <StackPanel Orientation="Vertical">
-                            <Label Name="Date6"></Label>
+                            <Label Name="Date6" Classes="Date"></Label>
                             <Label Name="Time6"></Label>
                             <Label Name="Temp6"></Label>
                             <Label Name="Desc6"></Label>
@@ -90,15 +116,15 @@
                 </StackPanel>
             </StackPanel>
         </TabItem>
-        <TabItem Header="Paramètres">
+        <TabItem Header="Paramètres"  >
             <StackPanel Orientation="Vertical">
-                <Label>Choisissez une ville par défaut</Label>
-                <StackPanel Orientation="Horizontal">
+                <Label Padding="0, 20, 0, 5">Choisissez une ville par défaut</Label>
+                <StackPanel Orientation="Horizontal" > 
                     <TextBox Name="SelectBarCity" Width="400"></TextBox>
                     <Button Name="defaultCity" Click="DefaultCity_OnClick">Valider</Button>
-                    <Label Name="ErrorDefaultCity"></Label>
+                    <Label Name="ErrorDefaultCity" ></Label>
                 </StackPanel>
-                <Label>Choisissez une langue par défaut :</Label>
+                <Label Padding="0, 20, 0, 5">Choisissez une langue par défaut :</Label>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Name="defaultLangBox" Width="400">
                         <ComboBoxItem Name="af">Afrikaans</ComboBoxItem>
