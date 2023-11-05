@@ -13,18 +13,18 @@ Here we created an application that retrieves data from openweathermap api then 
 ### Features availables
 
 <ul>
-    <li>Getting datas</li>
-    <li>Display datas</li>
-    <li>Search bar for search any cities of the world</li>
+    <li>Getting data</li>
+    <li>Displaying data</li>
+    <li>Search bar to search any city in the world</li>
     <li>Set default city</li>
     <li>Set default language</li>
-    <li>Icons with weather</li>
+    <li>Weather icons</li>
     <li>Weather forecast for the next 5 days</li>
 </ul>
 
-**You can search any cities around the Earth to know the weather.**
+**You can search any city around the world to know the weather.**
 
-**You can also define a language and a city by fedaut so that as soon as the application is launched you know the weather forecasts in your language**
+**You can also define a language and a city by default so that as soon as the application is launched you know the weather forecast in your language**
 
 ### Prerequisites
 
@@ -59,4 +59,8 @@ You must then create an app.config.json file in this folder and give it the foll
 }
 ```
 
-Then you can start the application and find out whether the weather is rainy or not in your area.
+Installing Weather Icons
+
+You must then download the img folder at this link [site](https://auvencecom-my.sharepoint.com/:f:/g/personal/lucas_hanson_ynov_com/EoZhySjkuJtPiQbglW6Bl9gBNxl0Hptl0ITHAOz7Pj13Eg?e=3OPt4y) and then place the folder in the same location as the app.config.json file
+
+Then you may start the application and find out whether the weather is rainy or not in your area.
