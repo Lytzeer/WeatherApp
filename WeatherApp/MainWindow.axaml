@@ -175,6 +175,7 @@
                         <ComboBoxItem Name="zu">Zulu</ComboBoxItem>
                     </ComboBox>
                     <Button Name="defaultLang" Click="DefaultLang_OnClick">Valider</Button>
+                    <Label Name="ErrorLang" ></Label>
                 </StackPanel>
             </StackPanel>
         </TabItem>

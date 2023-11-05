@@ -13,9 +13,9 @@ namespace WeatherApp;
 public partial class MainWindow : Window
 {
     public string City = "";
-    public WeatherDaily wD = new WeatherDaily();
-    public WeatherActual wA = new WeatherActual();
-    public WeatherApp w = new WeatherApp();
+    public WeatherDaily Wd = new WeatherDaily();
+    public WeatherActual Wa = new WeatherActual();
+    public WeatherApp W = new WeatherApp();
     public MainWindow()
     {
         CreateOptionsFile();
@@ -40,9 +40,8 @@ public partial class MainWindow : Window
             "gl", "he", "hi", "hr", "hu", "id", "it", "ja", "kr", "la", "lt", "mk", "no", "nl", "pl",
             "pt", "pt_br", "ro", "ru", "sv", "sk", "sl", "sp", "sr", "th", "tr", "ua", "vi", "zh_cn", "zh_tw"
         };
-        ApplicationSettings config = GetSettings();
-        SelectBarCity.Text = config.defaultCity;
-        defaultLangBox.SelectedIndex = countriesCodeList.FindIndex(la=> la.Contains(config.lang));
+        SelectBarCity.Text = new ApplicationSettings().GetSettings().defaultCity;
+        defaultLangBox.SelectedIndex = countriesCodeList.FindIndex(la=> la.Contains(new ApplicationSettings().GetSettings().lang));
     }
 
     public bool IsConnectedToInternet()
@@ -60,25 +59,19 @@ public partial class MainWindow : Window
         );
         if (!File.Exists("../../../options.json"))
         {
-            using  (StreamWriter w = File.AppendText(("../../../options.json")))
-            using (JsonTextWriter writerJson = new JsonTextWriter(w))
-            {
-                defaultsSettings.WriteTo(writerJson);
-            }
-            
+            string formattedJson = JsonConvert.SerializeObject(defaultsSettings, Formatting.Indented);
+            File.WriteAllText("../../../options.json", formattedJson);
         }
     }
 
     async public void DisplayDefaultWeather()
     {
-        ApplicationSettings config = GetSettings();
-        City = config.defaultCity;
+        City = new ApplicationSettings().GetSettings().defaultCity;
 
-        if (config.defaultCity != "")
+        if (City != "")
         {
-            Console.WriteLine("ccccccc");
-            wA = await w.CityWeatherActual(City);
-            wD = await w.CityWeatherDaily(City);
+            Wa = await W.CityWeatherActual(City);
+            Wd = await W.CityWeatherDaily(City);
             DisplayCurrentWeather();
             DisplayDailyWeather();
         }
@@ -94,8 +87,8 @@ public partial class MainWindow : Window
         }
         else if(IsConnectedToInternet())
         {
-            wA = await w.CityWeatherActual(City);
-            wD = await w.CityWeatherDaily(City);
+            Wa = await W.CityWeatherActual(City);
+            Wd = await W.CityWeatherDaily(City);
             DisplayCurrentWeather();
             DisplayDailyWeather();
         }
@@ -109,35 +102,35 @@ public partial class MainWindow : Window
 
     private void DisplayCurrentWeather()
     {
-        if (wA.Error == "")
+        if (Wa.Error == "")
         {
             SearchBar.Text = "";
             Error.Content = "";
-            Ville.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+wA.SysWeather.Country;
-            Coord.Content = wA.Coord.Lat+"; "+wA.Coord.Lon;
-            Image.Source = new Bitmap($"../../../img/{wA.Weathers[0].Icon}.png");
-            Temp.Content = "Température : "+Math.Round(wA.MainWeather.Temp,1)+"°";
-            Desc.Content = "Description : "+wA.Weathers[0].Description;
-            Hum.Content = "Humidité : "+wA.MainWeather.Humidity+"%";
+            Ville.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+Wa.SysWeather.Country;
+            Coord.Content = Wa.Coord.Lat+"; "+Wa.Coord.Lon;
+            Image.Source = new Bitmap($"../../../img/{Wa.Weathers[0].Icon}.png");
+            Temp.Content = "Température : "+Math.Round(Wa.MainWeather.Temp,1)+"°";
+            Desc.Content = "Description : "+Wa.Weathers[0].Description;
+            Hum.Content = "Humidité : "+Wa.MainWeather.Humidity+"%";
         }
         else
         {
-            Error.Content = wA.Error;
+            Error.Content = Wa.Error;
         }
     }
 
     private void DisplayDailyWeather()
     {
-        if (wD.Error == "")
+        if (Wd.Error == "")
         {
             Error2.Content = "";
-            Ville2.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+wD.CityDaily.Country;
-            Coord2.Content = "Coordonées: "+wD.CityDaily.Coord.Lat+"; "+wD.CityDaily.Coord.Lon;
+            Ville2.Content = City[0].ToString().ToUpper()+City.Substring(1).ToString()  +", "+Wd.CityDaily.Country;
+            Coord2.Content = "Coordonées: "+Wd.CityDaily.Coord.Lat+"; "+Wd.CityDaily.Coord.Lon;
             //On commence j à 2 car les labels sont nommés à partir de 2.
             int j = 2;
-            for (int i = 0; i < wD.ListsDailys.Length; i++)
+            for (int i = 0; i < Wd.ListsDailys.Length; i++)
             {
-                DateTime date = DateTime.ParseExact(wD.ListsDailys[i].DtTxt, "yyyy-MM-dd HH:mm:ss", null);
+                DateTime date = DateTime.ParseExact(Wd.ListsDailys[i].DtTxt, "yyyy-MM-dd HH:mm:ss", null);
                 if (date.Hour == 12)
                 {
                     var timeLabel = this.FindControl<Label>("Time" + j);
@@ -146,10 +139,10 @@ public partial class MainWindow : Window
                     var temp=this.FindControl<Label>("Temp" + j);
                     var desc = this.FindControl<Label>("Desc" + j);
                     var hum = this.FindControl<Label>("Hum" + j);
-                    temp.Content = Math.Round(wD.ListsDailys[i].Main.Temp,1)+"°";
-                    image.Source = new Bitmap($"../../../img/{wD.ListsDailys[i].Weather[0].Icon}.png");
-                    desc.Content = wD.ListsDailys[i].Weather[0].Description;
-                    hum.Content = wD.ListsDailys[i].Main.Humidity+"%";
+                    temp.Content = Math.Round(Wd.ListsDailys[i].Main.Temp,1)+"°";
+                    image.Source = new Bitmap($"../../../img/{Wd.ListsDailys[i].Weather[0].Icon}.png");
+                    desc.Content = Wd.ListsDailys[i].Weather[0].Description;
+                    hum.Content = Wd.ListsDailys[i].Main.Humidity+"%";
                     dateLabel.Content = date.ToString("D");
                     timeLabel.Content = date.ToString("HH:mm");
                     j++;
@@ -158,7 +151,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            Error2.Content = wD.Error;
+            Error2.Content = Wd.Error;
             ClearAll();
         }
     }
@@ -168,22 +161,17 @@ public partial class MainWindow : Window
     async private void DefaultCity_OnClick(object? sender, RoutedEventArgs e)
     {
         string defaultCityValue = SelectBarCity.Text.ToString();
-        wA = await w.CityWeatherActual(defaultCityValue);
-        if (wA.Error == "" && IsConnectedToInternet())
+        Wa = await W.CityWeatherActual(defaultCityValue);
+        if (Wa.Error == "" && IsConnectedToInternet())
         {
-            SelectBarCity.Text = "";
-            ApplicationSettings actualConfig = GetSettings();
+            string lang = new ApplicationSettings().GetSettings().lang;
             JObject changedSettings = new JObject(
                 new JProperty("defaultCity", defaultCityValue),
-                new JProperty("lang",actualConfig.lang)
+                new JProperty("lang",lang)
             );
-            using  (StreamWriter w = File.CreateText("../../../options.json"))
-            using (JsonTextWriter writerJson = new JsonTextWriter(w))
-            {
-                changedSettings.WriteTo(writerJson);
-            }
-
-            ErrorDefaultCity.Content = "";
+            string formattedJson = JsonConvert.SerializeObject(changedSettings, Formatting.Indented);
+            File.WriteAllText("../../../options.json", formattedJson);
+            ErrorDefaultCity.Content = $"{defaultCityValue} sera désormais la ville affichée par défaut dès le prochain lancement de l'application";
         }
         else if (!IsConnectedToInternet())
         {
@@ -191,7 +179,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            ErrorDefaultCity.Content = wA.Error;
+            ErrorDefaultCity.Content = Wa.Error;
         }
         
     }
@@ -205,21 +193,19 @@ public partial class MainWindow : Window
             "pt", "pt_br", "ro", "ru", "sv", "sk", "sl", "sp", "sr", "th", "tr", "ua", "vi", "zh_cn", "zh_tw"
         };
         string lang = countriesCodeList[defaultLangBox.SelectedIndex];
-        ApplicationSettings actualConfig = GetSettings();
+        string defaultCity = new ApplicationSettings().GetSettings().defaultCity;
         JObject changedSettings = new JObject(
-            new JProperty("defaultCity", actualConfig.defaultCity),
+            new JProperty("defaultCity", defaultCity),
             new JProperty("lang",lang)
         );
-        using  (StreamWriter w = File.CreateText("../../../options.json"))
-        using (JsonTextWriter writerJson = new JsonTextWriter(w))
-        {
-            changedSettings.WriteTo(writerJson);
-        }
+        string formattedJson = JsonConvert.SerializeObject(changedSettings, Formatting.Indented);
+        File.WriteAllText("../../../options.json", formattedJson);
+        ErrorLang.Content = $"{lang} sera désormais la langue par défaut dès le prochain lancement de l'application";
     }
 
     public void ClearAll()
     {
-        //Méthode pour afficher les erreurs
+        //Méthode utilisée pour afficher les erreurs
         //Clear les entrées de la page Recherche
         Ville.Content = "";
         Coord.Content = "";
@@ -246,12 +232,5 @@ public partial class MainWindow : Window
                 dateLabel.Content = "";
                 timeLabel.Content = "";
         }
-    }
-    
-    public ApplicationSettings GetSettings()
-    {
-        string configSettings = File.ReadAllText("../../../options.json");
-        ApplicationSettings config = JsonConvert.DeserializeObject<ApplicationSettings>(configSettings);
-        return config;
     }
 }

@@ -1,11 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Configuration;
-using System.IO;
-using System.Linq;
 
 namespace WeatherApp
 {
@@ -14,13 +10,10 @@ namespace WeatherApp
 
         public async Task<WeatherActual> CityWeatherActual(string city)
         {
-            string content = File.ReadAllText("../../../app.config.json");
-            ApiSettings config = JsonConvert.DeserializeObject<ApiSettings>(content);
-            string apiKey = config.apiKey;
-            
-            ApplicationSettings settings = GetSettings();
+            string apiKey = new Api().getApiKey();
+            string lang = new ApplicationSettings().GetSettings().lang;
 
-            string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric&lang={settings.lang}";
+            string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric&lang={lang}";
 
             using (HttpClient client = new HttpClient())
             {
@@ -39,8 +32,6 @@ namespace WeatherApp
                     {
                         WeatherActual wA = new WeatherActual();
                         wA.Error = "Veuillez entrez une ville qui existe s'il vous plaît";
-                        Console.WriteLine(response.StatusCode.ToString()=="NotFound");
-                        Console.WriteLine(response.StatusCode);
                         return wA;
                     }
 
@@ -54,19 +45,11 @@ namespace WeatherApp
 
         public async Task<WeatherDaily> CityWeatherDaily(string city)
         {
-            string content = File.ReadAllText("../../../app.config.json");
-            ApiSettings config = JsonConvert.DeserializeObject<ApiSettings>(content);
-            string apiKey = config.apiKey;
+            string apiKey = new Api().getApiKey();
+            string lang = new ApplicationSettings().GetSettings().lang;
 
-            ApplicationSettings settings = GetSettings();
+            string apiUrl = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}&lang={lang}&units=metric";
             
-            Console.WriteLine(settings.lang);
-
-            string apiUrl = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}&lang={settings.lang.ToString()}&units=metric";
-            
-            //lang à fixer car cpt
-            
-
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -89,29 +72,10 @@ namespace WeatherApp
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
                     return new WeatherDaily();
                 }
             }
         }
-        
-        public ApplicationSettings GetSettings()
-        {
-            string configSettings = File.ReadAllText("../../../options.json");
-            ApplicationSettings config = JsonConvert.DeserializeObject<ApplicationSettings>(configSettings);
-            return config;
-        }
-    }
-
-    public class ApiSettings
-    {
-        public string apiKey { get; set; }
-    }
-    
-    public class ApplicationSettings
-    {
-        public string defaultCity { get; set; }
-        public string lang { get; set; }
     }
 }
 
